@@ -1,8 +1,8 @@
 // Kivu — service worker
 // Cache the app shell so Kivu opens quickly and can work offline.
 
-const CACHE = 'kivu-shell-v7';
-const SHELL = ['./index.html', './app.html', './manifest.webmanifest', './icon.svg', './build/icon.png', './landing.html', './downloads.html', './terms.html', './site-config.js'];
+const CACHE = 'kivu-shell-v8';
+const SHELL = ['./index.html', './app.html', './manifest.webmanifest', './icon.svg', './build/icon.png', './landing.html', './downloads.html', './terms.html', './site-config.js', './analytics.js'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

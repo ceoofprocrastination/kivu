@@ -1,7 +1,7 @@
 {
   "name": "kivu-journal",
   "version": "1.0.0",
-  "description": "Kivu \u2014 a private, local-first journal.",
+  "description": "Kivu — a private, local-first journal.",
   "main": "electron-main.cjs",
   "author": "Kivu",
   "repository": {
@@ -34,6 +34,7 @@
       "manifest.webmanifest",
       "icon.svg",
       "sw.js",
+      "analytics.js",
       "README.md",
       "package.json",
       "downloads.html",
@@ -93,5 +94,8 @@
     "portable": {
       "artifactName": "Kivu-${version}-windows-${arch}-portable.${ext}"
     }
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }
