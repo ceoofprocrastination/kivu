@@ -1,0 +1,27 @@
+{
+  "name": "Kivu \u2014 give the noise somewhere to go",
+  "short_name": "Kivu",
+  "description": "A private place for the parts of your life that don't need an audience.",
+  "start_url": "./landing.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone"
+  ],
+  "orientation": "any",
+  "background_color": "#17191e",
+  "theme_color": "#17191e",
+  "categories": [
+    "lifestyle",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "build/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
