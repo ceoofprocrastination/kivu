@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="KivU accessibility statement: WCAG 2.2 AA conformance status, known limitations, and feedback contact.">
+<meta name="robots" content="index,follow">
+<title>Accessibility — KivU</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+:root{--paper:#f1f0e8;--ink:#17191e;--muted:#5c6069;--line:#d7d8d0;--blue:#525bff;--acid:#d5ff38;--coral:#ff684b;--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.7}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
+.wrap{width:min(980px,calc(100% - 40px));margin:auto}
+.skip-link{position:fixed;left:12px;top:-100px;z-index:2000;background:var(--ink);color:var(--paper);padding:12px 16px;border-radius:4px;font-weight:700;text-decoration:none}.skip-link:focus{top:12px}
+.nav{min-height:76px;display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid var(--line);flex-wrap:wrap;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;letter-spacing:-.08em;font-size:22px}
+.brandmark{width:30px;height:30px;background:var(--acid);color:var(--ink);display:grid;place-items:center;font-weight:700;transform:rotate(-7deg)}
+.links{display:flex;gap:18px;font-size:12px;flex-wrap:wrap}.links a{color:var(--muted);text-decoration:none}.links a:hover,.links a[aria-current]{color:var(--ink)}
+main{padding:64px 0 80px}.kicker{font:10px/1.6 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--blue)}
+h1{font:700 clamp(44px,7vw,78px)/.9 var(--sans);letter-spacing:-.09em;margin:14px 0 18px}h1 em{font-style:normal;color:var(--coral)}
+h2{font:700 26px/1.1 var(--sans);letter-spacing:-.05em;margin:38px 0 12px}
+p,li{font-size:14px;color:#4f535c;max-width:78ch}ul{padding-left:20px}
+.status{display:inline-block;background:#fff4c2;border:1px solid #b58b00;color:#3b2f00;padding:8px 12px;font:700 12px/1.4 var(--sans)}
+.box{border:1px solid var(--line);background:#fffef7;padding:18px 20px;margin:22px 0}
+.meta{font:10px/1.8 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line);padding-top:18px;margin-top:42px}
+.footer{border-top:1px solid var(--line);padding:24px 0 34px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.footer a{text-decoration:none}.footer a:hover{color:var(--ink)}
+@media(max-width:600px){.wrap{width:calc(100% - 28px)}main{padding-top:44px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="wrap"><nav class="nav" aria-label="Primary">
+  <a class="brand" href="index.html"><span class="brandmark" aria-hidden="true">k</span> KivU</a>
+  <div class="links"><a href="index.html">Home</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="accessibility.html" aria-current="page">Accessibility</a><a href="imprint.html">Imprint</a></div>
+</nav></header>
+<main id="main" class="wrap" tabindex="-1">
+  <div class="kicker">Everyone should be able to write</div>
+  <h1>Accessibility<br><em>is not a feature.</em></h1>
+
+  <p><span class="status">Conformance status: partially conforms with WCAG 2.2 Level AA</span></p>
+  <p>KivU aims to meet WCAG 2.2 Level AA and the accessibility requirements of the European Accessibility Act and the ADA. A formal third-party audit has not yet been completed, so we describe the current status honestly rather than claiming full conformance.</p>
+
+  <h2>Measures we have taken</h2>
+  <ul>
+    <li>Semantic landmarks, a skip link, logical heading order, and visible focus indicators with at least 3:1 contrast.</li>
+    <li>Keyboard-operable navigation, dialogs, mood buttons, and editor controls.</li>
+    <li>Labels for the title, journal textarea, PIN fields, and icon-only buttons.</li>
+    <li><code>inert</code> applied to background content while the vault, onboarding, or history dialog is open.</li>
+    <li>Focus moved into dialogs and returned to the trigger when they close; Escape closes the history sheet.</li>
+    <li>No colour-only state indicators: active tabs use <code>aria-current</code>; selected moods use <code>aria-pressed</code> plus a border.</li>
+    <li>Support for <code>prefers-reduced-motion</code>, <code>prefers-contrast</code>, and <code>forced-colors</code>.</li>
+    <li>Text can be zoomed to 200% without loss of function; the chart scrolls horizontally on small screens.</li>
+    <li>The mood chart has a visually hidden table alternative for screen-reader users.</li>
+    <li>Accessible authentication: PIN fields allow paste and declare the correct <code>autocomplete</code> values so password managers can assist.</li>
+    <li>Status messages use live regions; toasts pause on hover or focus and include a dismiss button.</li>
+  </ul>
+
+  <h2>Known limitations</h2>
+  <ul>
+    <li><strong>Third-party CDN scripts</strong> — Tailwind CSS and Dexie are loaded from public CDNs. Their accessibility is outside our control. A self-hosted build is planned.</li>
+    <li><strong>Canvas share image</strong> — the generated weekly image is decorative and optional; it is not the only way to access mood history. A text summary is available in the Mood tab.</li>
+    <li><strong>PIN recovery</strong> — the PIN cannot be recovered by design. This is a security trade-off, not an accessibility feature.</li>
+    <li><strong>Electron desktop build</strong> — not yet publicly distributed. The web app is the supported version.</li>
+  </ul>
+
+  <h2>Feedback and enforcement</h2>
+  <p>If you meet a barrier, contact <strong>accessibility@kivu.app</strong> or open an issue at <a href="https://github.com/ceoofprocrastination/kivu/issues" rel="noopener noreferrer">github.com/ceoofprocrastination/kivu/issues</a>. Tell us the page, the assistive technology you use, and what happened. We aim to acknowledge accessibility reports within 5 working days.</p>
+  <p>EU/EEA consumers may also contact the national market-surveillance authority responsible for the European Accessibility Act in their country. US users may contact the relevant federal agency or file an ADA complaint.</p>
+
+  <p class="meta">KivU · Accessibility Statement v1.0 · Last reviewed 26 October 2026 · This statement is a good-faith draft, not a certification.</p>
+</main>
+<footer class="wrap footer"><span>KivU — for the noise inside.</span><nav aria-label="Footer"><a href="index.html">Home</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="imprint.html">Imprint</a></nav></footer>
+</body></html>
