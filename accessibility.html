@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="description" content="KivU accessibility statement: WCAG 2.2 AA conformance status, known limitations, and feedback contact.">
+<meta name="robots" content="index,follow">
+<title>Accessibility — KivU</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=Caveat:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="kivu.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="wrap top"><a class="brand" href="index.html">kivu</a><a class="open" href="landing.html">Open journal</a></header>
+<main id="main" class="wrap" tabindex="-1">
+  <div class="kicker">Everyone should be able to write</div>
+  <h1>Accessibility<br><em>is not a feature.</em></h1>
+
+  <p><span class="status">Conformance status: partially conforms with WCAG 2.2 Level AA</span></p>
+  <p>KivU aims to meet WCAG 2.2 Level AA and the accessibility requirements of the European Accessibility Act and the ADA. A formal third-party audit has not yet been completed, so we describe the current status honestly rather than claiming full conformance.</p>
+
+  <h2>Measures we have taken</h2>
+  <ul>
+    <li>Semantic landmarks, a skip link, logical heading order, and visible focus indicators with at least 3:1 contrast.</li>
+    <li>Keyboard-operable navigation, dialogs, mood buttons, and editor controls.</li>
+    <li>Labels for the title, journal textarea, PIN fields, and icon-only buttons.</li>
+    <li><code>inert</code> applied to background content while the vault, onboarding, or history dialog is open.</li>
+    <li>Focus moved into dialogs and returned to the trigger when they close; Escape closes the history sheet.</li>
+    <li>No colour-only state indicators: active tabs use <code>aria-current</code>; selected moods use <code>aria-pressed</code> plus a border.</li>
+    <li>Support for <code>prefers-reduced-motion</code>, <code>prefers-contrast</code>, and <code>forced-colors</code>.</li>
+    <li>Text can be zoomed to 200% without loss of function; the chart scrolls horizontally on small screens.</li>
+    <li>The mood chart has a visually hidden table alternative for screen-reader users.</li>
+    <li>Accessible authentication: PIN fields allow paste and declare the correct <code>autocomplete</code> values so password managers can assist.</li>
+    <li>Status messages use live regions; toasts pause on hover or focus and include a dismiss button.</li>
+  </ul>
+
+  <h2>Known limitations</h2>
+  <ul>
+    <li><strong>Third-party CDN scripts</strong> — Tailwind CSS and Dexie are loaded from public CDNs. Their accessibility is outside our control. A self-hosted build is planned.</li>
+    <li><strong>Canvas share image</strong> — the generated weekly image is decorative and optional; it is not the only way to access mood history. A text summary is available in the Mood tab.</li>
+    <li><strong>PIN recovery</strong> — the PIN cannot be recovered by design. This is a security trade-off, not an accessibility feature.</li>
+    <li><strong>Electron desktop build</strong> — not yet publicly distributed. The web app is the supported version.</li>
+  </ul>
+
+  <h2>Feedback and enforcement</h2>
+  <p>If you meet a barrier, contact <strong>accessibility@kivu.app</strong> or open an issue at <a href="https://github.com/ceoofprocrastination/kivu/issues" rel="noopener noreferrer">github.com/ceoofprocrastination/kivu/issues</a>. Tell us the page, the assistive technology you use, and what happened. We aim to acknowledge accessibility reports within 5 working days.</p>
+  <p>EU/EEA consumers may also contact the national market-surveillance authority responsible for the European Accessibility Act in their country. US users may contact the relevant federal agency or file an ADA complaint.</p>
+
+  <p class="meta">KivU · Accessibility Statement v1.0 · Last reviewed 26 October 2026 · This statement is a good-faith draft, not a certification.</p>
+</main>
+<footer class="foot"><div class="wrap foot-in"><a class="brand" href="index.html">kivu</a><span>Made independently. Your words stay on your device.</span><nav aria-label="Footer"><a href="index.html">Home</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="accessibility.html" aria-current="page">Accessibility</a><a href="imprint.html">Imprint</a></nav></div></footer>
+</body></html>

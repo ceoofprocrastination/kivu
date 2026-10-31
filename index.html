@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light"><meta name="theme-color" content="#ffc93c"><meta name="description" content="KivU is a private journal for thoughts that don't arrive in straight lines.">
+<title>KivU — give the noise somewhere to go</title><link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=Caveat:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f6ecd8;color:#1f1b2d;font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased;font-size:18px}
+a{color:inherit;text-decoration:none}
+.fr{font-family:'Fraunces',Georgia,serif;font-weight:900;letter-spacing:-.03em}
+.hand{font-family:'Caveat',cursive;font-weight:700}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,56px);box-sizing:border-box}
+.cta{display:inline-flex;align-items:center;gap:18px;background:#1f1b2d;color:#f6ecd8;transition:transform .2s}
+.cta:hover{transform:rotate(0deg) scale(1.04)!important}
+textarea::placeholder{color:#1f1b2d88}
+textarea:focus{outline:none}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}</style>
+</head>
+<body>
+<main id="main">
+<div>
+
+<!-- HERO -->
+<div style="background:#ffc93c;padding-bottom:90px">
+<div class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:26px;padding-bottom:10px">
+<a href="#top" class="fr" style="font-size:36px;transform:rotate(-2deg);display:inline-block">kivu</a>
+<a href="landing.html" class="cta fr" style="font-size:19px;padding:13px 24px;border-radius:999px;font-weight:800">Open journal</a>
+</div>
+<div class="wrap" id="top" style="display:flex;flex-wrap:wrap;align-items:center;gap:48px;padding-top:36px">
+<div style="flex:1 1 500px;min-width:0">
+<h1 class="fr" style="margin:0;font-size:clamp(58px,9.4vw,132px);line-height:.88">Get it <span style="position:relative;display:inline-block">out of<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-2%;bottom:-6px;width:104%;height:16px"><path d="M3 12C60 4 110 16 170 8s90 4 127-2" stroke="#ee4b2b" stroke-width="7" stroke-linecap="round" fill="none"/></svg></span> your head.</h1>
+<p style="font-size:clamp(20px,2.2vw,26px);line-height:1.4;max-width:520px;margin:34px 0 40px;font-weight:500">That thing you keep replaying at 2am? Put it here. Nobody’s watching. Not even us.</p>
+<a href="landing.html" class="cta fr" style="font-size:clamp(28px,3.6vw,46px);font-weight:800;padding:30px 42px;border-radius:26px;box-shadow:9px 9px 0 #ee4b2b;transform:rotate(-1.5deg);letter-spacing:-.02em">Open your journal<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13c5-1 11-1 17-1M14 5l7 7-7 7"/></svg></a>
+<div class="hand" style="font-size:30px;margin:22px 0 0 14px;transform:rotate(-2deg)">no account. no card. no catch.</div>
+</div>
+
+<div style="flex:1 1 380px;display:grid;place-items:center;padding:20px 0">
+<div style="position:relative;width:min(100%,430px);background:#fbf5e6;border-radius:6px 14px 8px 12px;padding:34px 30px 26px;box-sizing:border-box;transform:rotate(2.5deg);box-shadow:10px 14px 0 #1f1b2d">
+<div style="position:absolute;top:-16px;left:30px;width:110px;height:34px;background:#ffadd0cc;transform:rotate(-5deg)"></div>
+<div style="position:absolute;top:-14px;right:24px;width:90px;height:32px;background:#ffadd0cc;transform:rotate(7deg)"></div>
+<div id="form">
+<div class="hand" style="font-size:34px;line-height:1;margin-bottom:6px">what’s looping right now?</div>
+<textarea id="t" placeholder="the thing I keep replaying is…" aria-label="Type a thought" style="display:block;width:100%;height:216px;border:none;resize:none;background-color:transparent;background-image:repeating-linear-gradient(transparent 0 35px,#1f1b2d33 35px 36px);font:700 28px/36px 'Caveat',cursive;color:#1f1b2d;padding:0"></textarea>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px">
+<span class="hand" style="font-size:24px"><span id="w">0</span> words, zero witnesses</span>
+<button id="send" type="button" class="fr" style="font-size:20px;font-weight:800;background:#ee4b2b;color:#1f1b2d;border:2px solid #1f1b2d;border-radius:999px;padding:12px 24px;cursor:pointer">let it out</button>
+</div>
+</div>
+<div id="done" hidden>
+<div class="fr" style="font-size:40px;line-height:1;margin-bottom:14px">That went nowhere.</div>
+<div class="hand" style="font-size:30px;line-height:1.15">Not to us, not anywhere. Your real journal works the same way, except it keeps it for you.</div>
+<div style="display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin-top:20px">
+<a href="landing.html" class="fr" style="font-size:22px;font-weight:800;border-bottom:4px solid #ee4b2b">Keep going for real →</a>
+<button id="again" type="button" class="hand" style="font-size:24px;background:none;border:none;cursor:pointer;padding:0;color:#1f1b2d;text-decoration:underline">write another</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- SOUND FAMILIAR -->
+<div class="wrap" style="padding-top:110px;padding-bottom:100px">
+<h2 class="fr" style="margin:0 0 50px;font-size:clamp(46px,7.5vw,104px);line-height:.92">Sound <span style="font-style:italic;font-weight:700">familiar?</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:26px 30px;align-items:flex-start">
+<div class="hand" style="width:250px;background:#ffadd0;padding:26px;font-size:32px;line-height:1.05;transform:rotate(-3deg);box-shadow:5px 6px 0 #1f1b2d">the 2am replay of something dumb I said years ago</div>
+<div class="hand" style="width:240px;background:#ffc93c;padding:26px;font-size:32px;line-height:1.05;transform:rotate(2deg) translateY(30px);box-shadow:5px 6px 0 #1f1b2d">a feeling with no name. just a weird weight.</div>
+<div class="hand" style="width:260px;background:#fbf5e6;padding:26px;font-size:32px;line-height:1.05;transform:rotate(-1deg) translateY(-10px);box-shadow:5px 6px 0 #1f1b2d">the good day I’ll have forgotten by Friday</div>
+<div class="hand" style="width:230px;background:#ee4b2b;padding:26px;font-size:32px;line-height:1.05;transform:rotate(4deg) translateY(20px);box-shadow:5px 6px 0 #1f1b2d">the thing I can’t tell anyone. yet.</div>
+</div>
+<p class="fr" style="font-size:clamp(28px,3.6vw,46px);line-height:1.08;max-width:860px;margin:80px 0 26px;font-weight:700">Most journals turn all that into a streak, a score and a nagging notification. KivU turns it into a page.</p>
+<a href="landing.html" class="fr" style="font-size:clamp(28px,3.4vw,42px);font-weight:800;background:linear-gradient(transparent 62%,#ffc93c 62%);padding:0 6px">Open your journal →</a>
+</div>
+
+<!-- YEAH BUT -->
+<div style="background:#f6ecd8;line-height:0"><svg viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true" style="display:block;width:100%;height:44px"><path d="M0 40 L0 14 L50 26 L110 10 L170 28 L240 12 L300 30 L370 14 L430 26 L500 8 L560 24 L630 12 L700 30 L770 10 L830 26 L900 14 L970 30 L1040 10 L1110 26 L1200 12 L1200 40 Z" fill="#1f1b2d"/></svg></div>
+<div style="background:#1f1b2d;color:#f6ecd8;padding:60px 0 110px">
+<div class="wrap">
+<h2 class="fr" style="margin:0 0 56px;font-size:clamp(46px,7.5vw,104px);line-height:.92">Yeah, but…</h2>
+<div style="display:flex;flex-wrap:wrap;gap:50px 60px">
+<div style="flex:1 1 300px"><div class="hand" style="font-size:42px;line-height:1;color:#ffc93c;margin-bottom:12px">“I’m not a journal person.”</div><p style="margin:0;font-size:21px;line-height:1.5;color:#eadfca">Good. No streak, no ‘day 3 of 30’, no prompt you have to answer. Vanish for a month. The page doesn’t mind.</p></div>
+<div style="flex:1 1 300px"><div class="hand" style="font-size:42px;line-height:1;color:#ffadd0;margin-bottom:12px">“Who can read it?”</div><p style="margin:0;font-size:21px;line-height:1.5;color:#eadfca">You. Everything is encrypted on your device behind your PIN. No account, no cloud, no AI reading along.</p></div>
+<div style="flex:1 1 300px"><div class="hand" style="font-size:42px;line-height:1;color:#ee4b2b;margin-bottom:12px">“What if I lose it?”</div><p style="margin:0;font-size:21px;line-height:1.5;color:#eadfca">Export a backup any time. Real talk: forget your PIN and nobody can get it back, not even us. That’s what private actually means.</p></div>
+</div>
+</div>
+</div>
+
+<!-- NO STREAK -->
+<div style="background:#ffadd0;padding:110px 0">
+<div class="wrap" style="display:flex;flex-wrap:wrap;align-items:center;gap:60px">
+<div style="flex:1 1 420px">
+<h2 class="fr" style="margin:0;font-size:clamp(46px,7vw,98px);line-height:.92">Your streak: <span style="font-style:italic;font-weight:700">none.</span></h2>
+<div class="hand" style="font-size:38px;line-height:1.05;margin:22px 0 28px;transform:rotate(-1.5deg)">gaps are allowed. gaps are the point.</div>
+<p style="margin:0;font-size:21px;line-height:1.55;max-width:480px">When you do show up: a mood check-in in your own words, a prompt for when the page feels too blank, and a little image of your week if you ever want to show someone.</p>
+</div>
+<div style="flex:1 1 360px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;align-items:center;justify-items:center">
+<span style="width:34px;height:34px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:41px;height:41px;border-radius:50%;background:#ffc93c;border:2px solid #1f1b2d"></span><span style="width:37px;height:37px;border-radius:50%;background:#1f1b2d;border:2px solid #1f1b2d"></span><span style="width:44px;height:44px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:40px;height:40px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:36px;height:36px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:43px;height:43px;border-radius:50%;background:#ee4b2b;border:2px solid #1f1b2d"></span><span style="width:39px;height:39px;border-radius:50%;background:#ffc93c;border:2px solid #1f1b2d"></span><span style="width:35px;height:35px;border-radius:50%;background:#1f1b2d;border:2px solid #1f1b2d"></span><span style="width:42px;height:42px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:38px;height:38px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:34px;height:34px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:41px;height:41px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:37px;height:37px;border-radius:50%;background:#ffc93c;border:2px solid #1f1b2d"></span><span style="width:44px;height:44px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:40px;height:40px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:36px;height:36px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:43px;height:43px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:39px;height:39px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:35px;height:35px;border-radius:50%;background:#ffc93c;border:2px solid #1f1b2d"></span><span style="width:42px;height:42px;border-radius:50%;background:#1f1b2d;border:2px solid #1f1b2d"></span><span style="width:38px;height:38px;border-radius:50%;background:#ee4b2b;border:2px solid #1f1b2d"></span><span style="width:34px;height:34px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:41px;height:41px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:37px;height:37px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:44px;height:44px;border-radius:50%;border:2px dashed #1f1b2d77"></span><span style="width:40px;height:40px;border-radius:50%;background:#1f1b2d;border:2px solid #1f1b2d"></span><span style="width:36px;height:36px;border-radius:50%;border:2px dashed #1f1b2d77"></span>
+</div>
+</div>
+</div>
+
+<!-- FINAL CTA -->
+<div id="end" style="background:#ee4b2b;padding:120px 0 130px;text-align:center">
+<div class="wrap">
+<h2 class="fr" style="margin:0 auto;max-width:1000px;font-size:clamp(52px,9.4vw,138px);line-height:.88;color:#f6ecd8">Your head’s loud. Give it <span style="font-style:italic;font-weight:700">a page.</span></h2>
+<div style="margin-top:56px"><a href="landing.html" class="cta fr" style="font-size:clamp(30px,5vw,60px);font-weight:800;background:#f6ecd8;color:#1f1b2d;padding:36px 56px;border-radius:30px;box-shadow:12px 12px 0 #1f1b2d;transform:rotate(1.5deg);letter-spacing:-.02em">Open your journal<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13c5-1 11-1 17-1M14 5l7 7-7 7"/></svg></a></div>
+<div class="hand" style="font-size:36px;margin-top:34px;color:#1f1b2d">free. private. yours.</div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div style="background:#1f1b2d;color:#eadfca;padding:36px 0">
+<div class="wrap" style="display:flex;flex-wrap:wrap;gap:16px 36px;align-items:center;justify-content:space-between;font-size:17px">
+<span class="fr" style="font-size:30px;color:#f6ecd8">kivu</span>
+<span>Made independently. Your words stay on your device.</span>
+<nav aria-label="Footer" style="display:flex;flex-wrap:wrap;gap:8px 24px"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="accessibility.html">Accessibility</a><a href="imprint.html">Imprint</a></nav>
+</div>
+</div>
+
+</div>
+</main>
+<script>(()=>{const t=document.getElementById('t'),w=document.getElementById('w'),f=document.getElementById('form'),d=document.getElementById('done');
+t.addEventListener('input',()=>{const v=t.value.trim();w.textContent=v?v.split(/\s+/).length:0});
+document.getElementById('send').addEventListener('click',()=>{if(t.value.trim()){f.hidden=true;d.hidden=false}});
+document.getElementById('again').addEventListener('click',()=>{t.value='';w.textContent=0;d.hidden=true;f.hidden=false;t.focus()});
+/* The demo notebook never sends or stores anything. */})();</script>
+</body>
+</html>
