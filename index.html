@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#2260d9"><meta name="description" content="KivU is a private journal for thoughts that don't arrive in straight lines.">
+<title>KivU — get it out of your head</title><link rel="icon" href="icon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@800;900&family=Caveat:wght@700&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<style>
+:root{--bg:#2260d9;--fg:#fff;--ink:#1f1b2d;--cream:#f6ecd8}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font:500 17px/1.4 'DM Sans',system-ui,sans-serif;transition:background .5s;overflow-x:hidden}
+canvas{position:fixed}#gl{inset:0;width:100%;height:100%}
+#ht{left:4vw;top:15vh;z-index:2;pointer-events:none}
+button,input,textarea{font:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid #ffc93c;outline-offset:3px}
+#nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:18px 4vw;font:800 20px 'Fraunces',serif;letter-spacing:.02em}
+#nav button{background:var(--fg);color:var(--bg);border:0;border-radius:999px;padding:9px 22px;font-weight:800}
+#hero{position:fixed;left:4vw;top:calc(15vh + min(62vw,820px)*.5);z-index:5;max-width:min(92vw,620px)}
+#sub{font:800 clamp(18px,2.4vw,28px)/1 'Fraunces',serif;letter-spacing:.28em;margin:6px 0 26px}
+.cta{display:inline-flex;align-items:center;gap:16px;background:var(--cream);color:var(--ink);border:3px solid var(--ink);border-radius:24px;padding:24px 36px;font:900 clamp(26px,3.4vw,44px)/1 'Fraunces',serif;letter-spacing:-.02em;text-decoration:none;box-shadow:9px 9px 0 var(--ink);transform:rotate(-1.5deg);transition:transform .2s}
+.cta:hover{transform:rotate(0) scale(1.04)}
+.hand{font:700 28px 'Caveat',cursive}
+#nb{position:fixed;right:4vw;top:50%;translate:0 -50%;z-index:5;width:min(92vw,400px);background:#fbf5e6;color:var(--ink);border:3px solid var(--ink);border-radius:8px 16px 10px 14px;padding:26px 24px 20px;rotate:2deg;box-shadow:9px 11px 0 var(--ink)}
+#nb h2{font:700 32px/1 'Caveat',cursive;margin:0 0 4px}
+#ta{display:block;width:100%;height:170px;border:0;resize:none;background:repeating-linear-gradient(transparent 0 33px,#1f1b2d33 33px 34px);font:700 27px/34px 'Caveat',cursive;color:var(--ink);padding:0}
+#ta:focus{outline:none}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px}
+#send{background:#ee4b2b;color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:10px 20px;font:800 19px 'Fraunces',serif}
+.song{display:flex;align-items:center;gap:10px;background:#ffc93c;border:2px solid var(--ink);border-radius:12px;padding:6px 10px 6px 6px;margin-top:8px;color:var(--ink)}
+.song img{width:44px;height:44px;border-radius:8px}.song span{flex:1;min-width:0;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.song button{background:var(--ink);color:var(--cream);border:0;border-radius:50%;width:34px;height:34px}
+#st{min-height:22px;font-size:15px;margin:6px 0 0}
+#bar{position:fixed;left:50%;bottom:14px;translate:-50% 0;width:min(96vw,1000px);z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:#18152299;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid #fff3;border-radius:22px;padding:10px 12px;color:#f6ecd8}
+#bar .song{margin:0;max-width:260px}
+#q{flex:1 1 200px;min-width:0;background:#ffffff1f;border:1px solid #fff4;border-radius:999px;color:#fff;padding:11px 18px}#q::placeholder{color:#f6ecd8bb}
+#res{position:absolute;left:0;right:0;bottom:calc(100% + 8px);max-height:300px;overflow:auto;background:#181522;border:1px solid #fff3;border-radius:16px;padding:6px}
+#res p{margin:10px}#res button{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:none;border:0;color:#f6ecd8;padding:8px;border-radius:10px}
+#res button:hover{background:#ffffff22}#res img{width:44px;height:44px;border-radius:6px}#res i{display:block;opacity:.75;font-style:normal;font-size:15px}
+.ib{background:#ffffff1f;color:#f6ecd8;border:1px solid #fff4;border-radius:999px;padding:10px 16px;font-weight:700}.ib.on{background:#ee4b2b;color:var(--ink)}
+.sw{width:26px;height:26px;border-radius:50%;border:2px solid #fff;padding:0}
+#infop{position:fixed;top:70px;right:4vw;z-index:30;width:min(92vw,400px);background:#181522ee;backdrop-filter:blur(14px);color:#f6ecd8;border:1px solid #fff3;border-radius:20px;padding:22px}
+#infop h3{font:900 28px 'Fraunces',serif;margin:0 0 8px}#infop p{margin:0 0 12px}#infop nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+#fin{position:fixed;left:50%;bottom:110px;translate:-50% 0;z-index:6;text-align:center;opacity:0;pointer-events:none;width:max-content;max-width:94vw}
+#hint{position:fixed;left:4vw;bottom:92px;z-index:5}
+[hidden]{display:none!important}
+@media(max-width:900px){#nb{top:auto;bottom:96px;right:50%;translate:50% 0;rotate:0deg;padding:16px}#ta{height:90px}#hero{top:auto;bottom:calc(96px + 330px)}#ht{top:10vh}#hint{display:none}}
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas><canvas id="ht" aria-hidden="true"></canvas>
+<header id="nav"><span>KIVU / GET IT OUT</span><button id="info" aria-expanded="false">INFO</button></header>
+<aside id="infop" hidden><h3>What’s KivU?</h3><p>A private journal for thoughts that don’t arrive in straight lines. No account. Entries are encrypted on your device behind your PIN.</p><p>Dictation runs Whisper inside your browser, so your voice never leaves your device. Song search sends only your search words to Apple’s public iTunes search.</p><nav><a href="privacy.html" style="color:#ffc93c">Privacy</a><a href="terms.html" style="color:#ffc93c">Terms</a><a href="accessibility.html" style="color:#ffc93c">Accessibility</a><a href="imprint.html" style="color:#ffc93c">Imprint</a></nav></aside>
+<div id="hero"><p id="sub">BORN TO BE SAID</p><a class="cta" href="landing.html">Open your journal<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13c5-1 11-1 17-1M14 5l7 7-7 7"/></svg></a><div class="hand" style="margin:18px 0 0 10px">no account. no card. no catch.</div></div>
+<div id="hint" class="hand">scroll to dive in ↓</div>
+<section id="nb" aria-label="Try a diary entry">
+<div id="form"><h2>what’s looping right now?</h2><textarea id="ta" placeholder="the thing I keep replaying is…" aria-label="Diary entry"></textarea><div id="sc" class="song" hidden></div>
+<div class="row"><span class="hand" style="font-size:23px"><span id="w">0</span> words, zero witnesses</span><button id="send" type="button">let it out</button></div><p id="st" role="status"></p></div>
+<div id="dn" hidden><h2 style="font-size:40px">That went nowhere.</h2><p class="hand" style="font-size:28px;line-height:1.1;margin:8px 0">Not to us, not anywhere. Your song stays attached to the page in your real journal.</p><div id="sd" class="song" hidden></div><div class="row"><a href="landing.html" style="font:800 21px 'Fraunces',serif;color:var(--ink)">Keep going for real →</a><button id="again" type="button" class="hand" style="background:none;border:0;font-size:23px;text-decoration:underline">write another</button></div></div>
+</section>
+<div id="fin"><a class="cta" href="landing.html">Open your journal<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13c5-1 11-1 17-1M14 5l7 7-7 7"/></svg></a></div>
+<div id="bar" role="toolbar" aria-label="Taskbar"><div id="res" hidden></div>
+<input id="q" type="search" placeholder="♪ search a song to attach to your entry…" aria-label="Search a song" autocomplete="off"><div id="chip" class="song" hidden></div>
+<button id="mic" class="ib" type="button" aria-label="Dictate with Whisper">MIC</button>
+<span id="sws" style="display:flex;gap:8px" role="group" aria-label="Background color"></span>
+<button id="rs" class="ib" type="button">RESTART</button></div>
+<div style="height:700vh"></div>
+<script type="module">
+import * as THREE from 'three';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+const $=s=>document.querySelector(s),INK='#1f1b2d',BGS=['#2260d9','#ee4b2b','#ffc93c','#ffadd0','#3b2a78'];
+const el=(t,p={})=>Object.assign(document.createElement(t),p),rt=document.documentElement.style;
+const lum=h=>{const c=[1,3,5].map(i=>{const v=parseInt(h.substr(i,2),16)/255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4});return .2126*c[0]+.7152*c[1]+.0722*c[2]};
+await document.fonts.load('900 100px Fraunces');await document.fonts.ready;
+/* ---------- scene ---------- */
+const R=new THREE.WebGLRenderer({canvas:$('#gl'),antialias:true,alpha:true});R.setPixelRatio(Math.min(devicePixelRatio,2));
+const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(50,1,.1,200);
+S.environment=new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(),.04).texture;
+const lm=new THREE.LineBasicMaterial({color:'#fff'}),fm=new THREE.MeshBasicMaterial({color:'#fff',side:2}),pm=new THREE.PointsMaterial({color:'#fff',size:.07});
+const head=new THREE.Group(),LA=14,LO=28,SG=64,P=[];
+for(let i=1;i<LA;i++)for(let j=0;j<SG;j++)P.push([j/SG,i/LA],[(j+1)/SG,i/LA]);
+for(let k=0;k<LO;k++)for(let j=0;j<SG/2;j++)P.push([k/LO,j/(SG/2)],[k/LO,(j+1)/(SG/2)]);
+const hg=new THREE.BufferGeometry(),hp=new Float32Array(P.length*3);hg.setAttribute('position',new THREE.BufferAttribute(hp,3));
+head.add(new THREE.LineSegments(hg,lm),new THREE.Mesh(new THREE.SphereGeometry(1.3,48,32),new THREE.MeshBasicMaterial({color:'#08080c'})));S.add(head);
+let loud=.25,tl=.25;
+const upd=t=>{P.forEach((q,n)=>{const a=q[0]*6.2832,b=q[1]*3.1416,r=1.5+loud*.55*Math.sin(a*3+t*2.1)*Math.sin(b*4-t*1.7)+loud*.2*Math.sin(a*7+b*5+t*3);hp[n*3]=r*Math.sin(b)*Math.cos(a);hp[n*3+1]=r*Math.cos(b);hp[n*3+2]=r*Math.sin(b)*Math.sin(a)});hg.attributes.position.needsUpdate=true};
+const tex=(w,h,f)=>{const c=el('canvas',{width:w,height:h}),x=c.getContext('2d');f(x,w,h);const t=new THREE.CanvasTexture(c);t.anisotropy=4;return t};
+const wrap=(x,s,px,py,mw,lh)=>{let l='',y=py;s.split(' ').forEach(w=>{if(x.measureText(l+w).width>mw){x.fillText(l,px,y);l='';y+=lh}l+=w+' '});x.fillText(l,px,y)};
+const card=(z,x,y,r,bg,t1,t2)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(3.2,2),new THREE.MeshBasicMaterial({side:2,map:tex(640,400,(c,w,h)=>{c.fillStyle=bg;c.fillRect(0,0,w,h);c.strokeStyle=INK;c.lineWidth=14;c.strokeRect(7,7,w-14,h-14);c.fillStyle=INK;c.font='900 40px Fraunces';c.fillText(t1,36,76);c.font='900 64px Fraunces';wrap(c,t2,36,170,w-72,72)})}));m.position.set(x,y,z);m.rotation.z=r;S.add(m);return m};
+card(-10,-.5,.2,-.1,'#ffc93c','01 / THE PAGE','Write like nobody’s grading it.');card(-12,.3,-.2,.07,'#ffadd0','02 / THE PATTERN','Notice the things you miss.');card(-14,-.1,.1,-.04,'#f6ecd8','03 / THE RECAP','A little image of your week.');
+const hud=new THREE.Group();hud.position.z=-26;S.add(hud);
+[2,2.5,3].forEach((r,i)=>{const m=new THREE.Mesh(new THREE.RingGeometry(r,r+.03,96),fm);m.userData.s=(i+1)*(i%2?-.4:.4);hud.add(m)});
+{const tp=[];for(let i=0;i<72;i++){const a=i/72*6.2832,l=i%6?.12:.3;tp.push(Math.cos(a)*3.1,Math.sin(a)*3.1,0,Math.cos(a)*(3.1+l),Math.sin(a)*(3.1+l),0)}const g=new THREE.BufferGeometry().setAttribute('position',new THREE.Float32BufferAttribute(tp,3));hud.add(new THREE.LineSegments(g,lm))}
+const hm=new THREE.Mesh(new THREE.PlaneGeometry(3.4,2.1),new THREE.MeshBasicMaterial({transparent:true,map:tex(680,420,(c,w,h)=>{c.fillStyle='#08080cdd';c.fillRect(0,0,w,h);c.fillStyle='#fff';c.font='700 34px DM Sans';c.fillText('MOOD CHECK-IN',30,56);['calm','restless','tender','loud'].forEach((n,i)=>{c.fillText(n,30,128+i*66);c.fillRect(220,102+i*66,[250,380,330,180][i],26)})})}));hud.add(hm);
+const knob=new THREE.Group();knob.position.z=-40;knob.rotation.x=Math.PI/2;S.add(knob);
+const kb=new THREE.Mesh(new THREE.CylinderGeometry(1,1.08,.7,64),new THREE.MeshStandardMaterial({color:'#c9c9d0',metalness:1,roughness:.22}));kb.add(new THREE.Mesh(new THREE.BoxGeometry(.12,.72,.5),new THREE.MeshStandardMaterial({color:'#ee4b2b',metalness:.3,roughness:.4})).translateZ(.7));knob.add(kb);
+{const tp=[];for(let i=0;i<40;i++){const a=i/40*6.2832;tp.push(Math.cos(a)*1.45,.36,Math.sin(a)*1.45,Math.cos(a)*1.65,.36,Math.sin(a)*1.65)}knob.add(new THREE.LineSegments(new THREE.BufferGeometry().setAttribute('position',new THREE.Float32BufferAttribute(tp,3)),lm))}
+const lt=new THREE.PointLight('#fff',60,30);lt.position.set(2,2,-36);S.add(lt);
+const vt=new THREE.Mesh(new THREE.PlaneGeometry(3.4,2.2),new THREE.MeshBasicMaterial({map:tex(680,440,(c,w,h)=>{c.fillStyle='#08080c';c.fillRect(0,0,w,h);c.fillStyle='#fff';c.font='900 58px Fraunces';wrap(c,'Locked behind your PIN.',36,90,w-72,64);for(let i=0;i<6;i++){c.beginPath();c.arc(70+i*62,330,18,0,6.3);i<4?c.fill():(c.lineWidth=4,c.strokeStyle='#fff',c.stroke())}})}));vt.position.z=-54;S.add(vt);
+[[-1.5,.35],[1.5,-.35]].forEach(([x,r])=>{const g=new THREE.Mesh(new THREE.PlaneGeometry(2.4,3),new THREE.MeshPhysicalMaterial({color:'#fff',transmission:1,roughness:.12,thickness:.6,ior:1.4}));g.position.set(x,0,-52);g.rotation.y=r;S.add(g)});
+/* finale: particles converge into KIVU */
+const N=2400,T=[],cv=el('canvas',{width:900,height:300}),cx=cv.getContext('2d');cx.fillStyle='#000';cx.font='900 270px Fraunces';cx.textAlign='center';cx.textBaseline='middle';cx.fillText('KIVU',450,160);
+{const d=cx.getImageData(0,0,900,300).data;for(let y=0;y<300;y+=4)for(let x=0;x<900;x+=4)if(d[(y*900+x)*4+3]>128)T.push([(x-450)*.011,(150-y)*.011])}
+const fs=new Float32Array(N*3),fa=new Float32Array(N*3),fg=new THREE.BufferGeometry();
+for(let i=0;i<N;i++){fa[i*3]=(Math.random()-.5)*28;fa[i*3+1]=(Math.random()-.5)*16;fa[i*3+2]=-68+(Math.random()-.5)*14}
+fg.setAttribute('position',new THREE.BufferAttribute(fs,3));S.add(new THREE.Points(fg,pm));
+/* ---------- background + halftone ---------- */
+const ht=$('#ht'),hx=ht.getContext('2d');
+function halftone(){const W=ht.width=Math.min(innerWidth*.62,820),H=ht.height=W*.5,o=el('canvas',{width:W,height:H}),ox=o.getContext('2d');ox.fillStyle='#000';ox.fillRect(0,0,W,H);ox.fillStyle='#fff';ox.font=`900 ${W*.21}px Fraunces`;ox.textBaseline='top';ox.fillText('GET IT',0,0);ox.fillText('OUT',0,W*.2);
+const d=ox.getImageData(0,0,W,H).data,g=W/64;hx.clearRect(0,0,W,H);hx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--fg');
+for(let y=g/2;y<H;y+=g)for(let x=g/2;x<W;x+=g){let s=0;for(let a=-1;a<=1;a++)for(let b=-1;b<=1;b++)s+=d[((Math.floor(y+b*g/3)*W)+Math.floor(x+a*g/3))*4];const r=g*.62*(s/9/255);if(r>.4){hx.beginPath();hx.arc(x,y,r,0,6.3);hx.fill()}}}
+function setBg(h){rt.setProperty('--bg',h);const L=lum(h),f=1.05/(L+.05)>(L+.05)/(lum(INK)+.05)?'#fff':INK;rt.setProperty('--fg',f);lm.color.set(f);fm.color.set(f);pm.color.set(f);halftone()}
+BGS.forEach(h=>{const b=el('button',{className:'sw',type:'button',ariaLabel:'Background '+h});b.style.background=h;b.onclick=()=>setBg(h);$('#sws').append(b)});
+/* ---------- diary: typing, song search, Whisper ---------- */
+const ta=$('#ta'),st=$('#st'),say=t=>st.textContent=t;let song=null;const au=new Audio();
+ta.oninput=()=>{const v=ta.value.trim();$('#w').textContent=v?v.split(/\s+/).length:0;tl=Math.min(1,.25+ta.value.length/140)};
+function songUI(n){n.innerHTML='';if(!song){n.hidden=true;return}n.hidden=false;const s=el('span',{});s.append(el('b',{textContent:song.trackName}),' · '+song.artistName);n.append(el('img',{src:song.artworkUrl100,alt:''}),s);
+if(song.previewUrl&&n.id!=='sd'){const p=el('button',{type:'button',ariaLabel:'Play 30 second preview',textContent:'▶'});p.onclick=()=>{au.paused||au.src===song.previewUrl?(au.paused?(au.src=song.previewUrl,au.play()):au.pause()):(au.src=song.previewUrl,au.play())};n.append(p)}
+if(n.id!=='sd'){const x=el('button',{type:'button',ariaLabel:'Remove song',textContent:'✕'});x.onclick=()=>{song=null;au.pause();allSong()};n.append(x)}}
+const allSong=()=>['#sc','#chip','#sd'].forEach(i=>songUI($(i)));
+const q=$('#q'),res=$('#res');let tm;
+q.oninput=()=>{clearTimeout(tm);const v=q.value.trim();if(v.length<2){res.hidden=true;return}tm=setTimeout(()=>find(v),350)};
+async function find(v){res.hidden=false;res.innerHTML='<p>searching…</p>';try{const j=await(await fetch('https://itunes.apple.com/search?media=music&entity=song&limit=6&term='+encodeURIComponent(v))).json();res.innerHTML='';if(!j.results.length)res.innerHTML='<p>no songs found</p>';j.results.forEach(s=>{const b=el('button',{type:'button'}),t=el('span',{});t.append(el('b',{textContent:s.trackName}),el('i',{textContent:s.artistName}));b.append(el('img',{src:s.artworkUrl60,alt:''}),t);b.onclick=()=>{song=s;res.hidden=true;q.value='';allSong();say('song attached ♪')};res.append(b)})}catch(e){res.innerHTML='<p>couldn’t reach song search. check your connection.</p>'}}
+$('#send').onclick=()=>{if(!ta.value.trim())return;$('#form').hidden=true;$('#dn').hidden=false;songUI($('#sd'));tl=.05;au.pause()};
+const again=()=>{ta.value='';ta.oninput();$('#dn').hidden=true;$('#form').hidden=false;say('')};$('#again').onclick=again;
+$('#rs').onclick=()=>{again();scrollTo({top:0,behavior:'smooth'})};
+$('#info').onclick=()=>{const o=$('#infop');o.hidden=!o.hidden;$('#info').setAttribute('aria-expanded',!o.hidden)};
+let asr,rec,ch;const mic=$('#mic');
+mic.onclick=async()=>{if(rec&&rec.state==='recording'){rec.stop();return}
+try{const m=await navigator.mediaDevices.getUserMedia({audio:true});rec=new MediaRecorder(m);ch=[];rec.ondataavailable=e=>ch.push(e.data);
+rec.onstop=async()=>{m.getTracks().forEach(t=>t.stop());mic.classList.remove('on');say('transcribing on your device…');
+try{if(!asr){say('loading Whisper, first time only (~40 MB)…');const {pipeline}=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.5.0');asr=await pipeline('automatic-speech-recognition','Xenova/whisper-tiny.en')}
+const buf=await new AudioContext({sampleRate:16000}).decodeAudioData(await new Blob(ch).arrayBuffer()),o=await asr(buf.getChannelData(0));
+ta.value+=(ta.value?' ':'')+o.text.trim();ta.oninput();say('')}catch(e){say('couldn’t transcribe that. try again.')}};
+rec.start();mic.classList.add('on');say('listening… tap MIC again to stop')}catch(e){say('microphone blocked')}};
+/* ---------- scroll loop ---------- */
+let p=0,ps=0,mx=0,my=0;const sm=(a,b,x)=>{x=Math.min(1,Math.max(0,(x-a)/(b-a)));return x*x*(3-2*x)};
+addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+function size(){R.setSize(innerWidth,innerHeight,false);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix();halftone()}addEventListener('resize',size);
+setBg('#2260d9');size();const clk=new THREE.Clock();
+R.setAnimationLoop(()=>{const t=clk.getElapsedTime();p=scrollY/Math.max(1,document.body.scrollHeight-innerHeight);ps+=(p-ps)*.07;loud+=(tl-loud)*.06;
+upd(t);head.rotation.y=t*.25;head.scale.setScalar(Math.max(.001,1-sm(.03,.11,ps)));
+C.position.set(Math.sin(ps*9)*.6*(1-ps)+mx*.8,-my*.5,7-65*ps);C.lookAt(C.position.x*.3,0,C.position.z-10);lt.position.z=C.position.z-6;
+hud.children.forEach(m=>{if(m.userData.s)m.rotation.z=t*m.userData.s});kb.rotation.y=ps*16;
+const e=sm(.84,.97,ps);for(let i=0;i<N;i++){const g=T[i%T.length],j=(1-e)*.35;fs[i*3]=fa[i*3]+((g?g[0]:0)-fa[i*3])*e+Math.sin(t+i)*j;fs[i*3+1]=fa[i*3+1]+((g?g[1]:0)-fa[i*3+1])*e+Math.cos(t*1.3+i)*j;fs[i*3+2]=fa[i*3+2]+(-68-fa[i*3+2])*e}fg.attributes.position.needsUpdate=true;
+const f=Math.max(0,1-ps*9);for(const n of['#hero','#nb','#ht','#hint'])$(n).style.opacity=f;$('#hero').style.pointerEvents=$('#nb').style.pointerEvents=f<.2?'none':'auto';
+const z=sm(.9,.97,ps);$('#fin').style.opacity=z;$('#fin').style.pointerEvents=z>.5?'auto':'none';
+R.render(S,C)});
+</script>
+</body>
+</html>
