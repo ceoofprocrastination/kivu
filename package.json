@@ -1,0 +1,103 @@
+{
+  "name": "kivu-journal",
+  "version": "1.0.0",
+  "description": "Kivu — a private, local-first journal.",
+  "main": "electron-main.cjs",
+  "author": "Kivu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ceoofprocrastination/kivu.git"
+  },
+  "homepage": "https://github.com/ceoofprocrastination/kivu#readme",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --publish never",
+    "dist:win": "electron-builder --win msi nsis portable --publish never",
+    "dist:mac": "electron-builder --mac dmg zip --publish never",
+    "dist:linux": "electron-builder --linux AppImage deb --publish never"
+  },
+  "devDependencies": {
+    "electron": "^35.2.1",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "app.nuvoladiary.desktop",
+    "productName": "Kivu",
+    "asar": true,
+    "files": [
+      "electron-main.cjs",
+      "index.html",
+      "app.html",
+      "landing.html",
+      "manifest.webmanifest",
+      "icon.svg",
+      "sw.js",
+      "README.md",
+      "package.json",
+      "terms.html",
+      "privacy.html",
+      "imprint.html",
+      "accessibility.html",
+      "kivu.css",
+      "site-config.js",
+      "build/icon.png"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "artifactName": "Kivu-${version}-${os}-${arch}.${ext}",
+    "win": {
+      "target": [
+        "msi",
+        "nsis",
+        "portable"
+      ],
+      "artifactName": "Kivu-${version}-windows-${arch}.${ext}",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "Kivu-${version}-windows-${arch}-setup.${ext}"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.lifestyle",
+      "artifactName": "Kivu-${version}-mac-${arch}.${ext}",
+      "icon": "build/icon.icns"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility",
+      "synopsis": "A private, local-first journal",
+      "artifactName": "Kivu-${version}-linux-${arch}.${ext}",
+      "icon": "build/icon.png"
+    },
+    "msi": {
+      "oneClick": false,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "runAfterFinish": true,
+      "shortcutName": "Kivu",
+      "upgradeCode": "{6A14D3F2-8C91-4A5E-9B70-2F7C1D8E4A63}",
+      "artifactName": "Kivu-${version}-windows-${arch}.msi"
+    },
+    "portable": {
+      "artifactName": "Kivu-${version}-windows-${arch}-portable.${ext}"
+    }
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
